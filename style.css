@@ -1,207 +1,405 @@
+/* --- VARIABLES & FONTS --- */
+:root {
+    --primary-color: #0056b3; /* Deep Blue - Professional */
+    --secondary-color: #004494; /* Darker Blue for hovers */
+    --accent-color: #00a8e8; /* Light Blue for accents */
+    --bg-color: #f4f7f9; /* Very light grey-blue background */
+    --text-main: #333333;
+    --text-light: #666666;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
 @font-face {
     font-family: 'E-Ukraine-Logo';
-    src: url('fonts/e-UkraineHead-LOGO.otf') format('opentype'),
-    }
-    
-@font-face {
-font-family: 'E-Ukraine-Regular';
-src: url('fonts/e-UkraineHead-Regular.otf') format('opentype'),
+    src: url('fonts/e-UkraineHead-LOGO.otf') format('opentype');
+    font-display: swap;
 }
+
+@font-face {
+    font-family: 'E-Ukraine-Regular';
+    src: url('fonts/e-UkraineHead-Regular.otf') format('opentype');
+    font-display: swap;
+}
+
 @font-face {
     font-family: 'E-Ukraine-Bold';
-    src: url('fonts/e-UkraineHead-Bold.otf') format('opentype'),
-    }       
-body {
+    src: url('fonts/e-UkraineHead-Bold.otf') format('opentype');
+    font-display: swap;
+}
+
+/* --- GLOBAL RESET --- */
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #CFFFE5, #A3DFF5, #87CEEB);
-    height: 100vh;
+    padding: 0;
+}
+
+body {
+    font-family: 'E-Ukraine-Regular', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
+    line-height: 1.6;
 }
-#header {
-    position: fixed;
-  }
- 
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- HEADER & NAVIGATION --- */
 .header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: 'E-Ukraine-Logo', sans-serif;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     position: sticky;
-    top:0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.85); /* Glassmorphism base */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: center; /* Center content */
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
+.header .button {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navigation Links/Buttons Styling */
 .header button {
-    border: none;
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid transparent;
+    padding: 8px 16px;
     border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 14px;
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    font-size: 0.9rem;
     cursor: pointer;
-    margin: 0 5px;
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    font-family: 'E-Ukraine-Logo', sans-serif;
-    margin-bottom: 5px;
+    transition: var(--transition);
 }
 
-.header button:active {
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    a{
-        color:black;
-    }
-}
-.header a {
-    text-decoration: none;
-    color: white;
+.header button a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-.header .logo img {
-    width: 50px;
-    height: 50px;
-    background-color: black;
-    border-radius: 50%;
-    align-self: center;
+.header button:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
+.header button:hover a {
+    color: var(--white);
+}
+
+/* Special styling for info buttons (Clock, Date) to look less clickable */
+.header button:has(#clock), 
+.header button:has(#date),
+.header button:has(#timer),
+.header button:has(#nextPause) {
+    background-color: #e9ecef;
+    color: var(--text-light);
+    cursor: default;
+    font-family: 'E-Ukraine-Regular', monospace;
+    border: 1px solid #dee2e6;
+}
+.header button:has(#clock):hover,
+.header button:has(#date):hover {
+    transform: none;
+    background-color: #e9ecef;
+    color: var(--text-light);
+    box-shadow: none;
+}
+
+/* --- MAIN LAYOUT --- */
 .content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    gap: 40px;
 }
-main{
-    justify-content: center;
-    justify-items: center;
-    display: flex;
-    flex-direction: column;
 
-}
-main h1{
+h1 {
     font-family: 'E-Ukraine-Logo', sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    text-align: center;
 }
-main p{
 
-    font-family: 'E-Ukraine-Regular', sans-serif;
+h2 {
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--text-main);
 }
-main li{
+
+/* --- CARDS (Accueil, Calculators) --- */
+.Accueil, .CalculNote, .Calcuateur {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+}
+
+.CalculNote {
+    text-align: left; /* Keep forms left-aligned for readability */
+}
+
+.Accueil p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.Accueil ul {
+    text-align: left;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.Accueil li {
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.Accueil li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* --- FORMS & INPUTS --- */
+.form-group, .input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5e8;
+    border-radius: 8px;
+    font-family: 'E-Ukraine-Regular', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    background-color: #fdfdfd;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--white);
+}
+
+/* Action Buttons in Forms */
+.CalculNote button, .Calcuateur button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: var(--transition);
     font-family: 'E-Ukraine-Bold', sans-serif;
 }
-.Accueil{
-    background-color: white;
-    color: black;
-padding: 30px;
-border-radius: 14px;
-margin-bottom: 50%;
-text-align: center;
-vertical-align: middle;
+
+.CalculNote button:hover {
+    background-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
 }
-.Accueil li{
-    text-align: left;
-}
-.CalculNote{
-    background-color: white;
-    color: black;
-padding: 30px;
-border-radius: 14px;
-margin-bottom: 50%;
-text-align: left;
-vertical-align: middle;
-}
-.input-group {
-    margin-bottom: 10px;
-}
-label, option {
-    margin-right: 10px;
-    font-family: 'E-Ukraine-Regular', sans-serif
-}
-.result {
-    font-weight: bold;
-    margin-top: 20px;
-    font-family: 'E-Ukraine-Regular', sans-serif
-}
+
+/* --- TABLES --- */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e1e5e8;
 }
-table, th, td {
-    border: 1px solid black;
+
+thead {
+    background-color: var(--primary-color);
+    color: var(--white);
 }
+
 th, td {
-    padding: 8px;
-    text-align: center;
-    font-family: 'E-Ukraine-Regular', sans-serif;
-}
-button{
-    color: white;
-    background-color: black;
-    font-family: 'E-Ukraine-Regular', sans-serif;
-    border-radius: 5px;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e1e5e8;
 }
 
+th {
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    font-weight: normal;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* --- GRID LAYOUT FOR LINKS & MODELS (The Container) --- */
 .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive Grid */
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 60px;
+}
+
+/* Remove old box styling */
+.box {
+    width: auto;
+    height: auto;
+    margin: 0;
+}
+
+/* New Card Styling */
+.lien-box {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    padding: 25px 20px;
     display: flex;
-    justify-content: space-around;
-    align-items: left;
-
-    gap: 200px;
-    margin-top: 40px;
-    margin-bottom: 50%;
-    
-  }
-  
-  .box {
-    width: 100px;
-    height: 100px;
-    
-    margin: 10px;
-  }
-  .lien-box a{
-
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 0 5px;
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    font-family: 'E-Ukraine-Logo', sans-serif;
-  }
-
-.lien-box{
-    display:flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    border-radius: 14px;
-    gap: 5px;
-    width: 200px;
-    height: 200px;
-    padding: 10px;
-    padding-bottom: 0px;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 220px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.03);
+    width: 100%;
 }
-.lien-box img{
-    width: 100px;
-    height: 100px;
+
+.lien-box:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
-.Calcuateur{
-    background-color: white;
+
+.lien-box img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Subtle rounding on images */
+}
+
+.lien-box a {
+    background-color: var(--text-main);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.2s;
+    width: 100%;
+    font-family: 'E-Ukraine-Bold', sans-serif;
+}
+
+.lien-box a:hover {
+    background-color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* --- RESULTS --- */
+#result, #final-result {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #eef7ff;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #d6e9f9;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+    
+    .header .button {
+        gap: 8px;
+    }
+    
+    .header button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .content {
+        margin-top: 20px;
+    }
+
+    .Accueil, .CalculNote {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
 }
