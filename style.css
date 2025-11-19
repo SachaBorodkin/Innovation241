@@ -1,0 +1,207 @@
+@font-face {
+    font-family: 'E-Ukraine-Logo';
+    src: url('fonts/e-UkraineHead-LOGO.otf') format('opentype'),
+    }
+    
+@font-face {
+font-family: 'E-Ukraine-Regular';
+src: url('fonts/e-UkraineHead-Regular.otf') format('opentype'),
+}
+@font-face {
+    font-family: 'E-Ukraine-Bold';
+    src: url('fonts/e-UkraineHead-Bold.otf') format('opentype'),
+    }       
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #CFFFE5, #A3DFF5, #87CEEB);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+#header {
+    position: fixed;
+  }
+ 
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'E-Ukraine-Logo', sans-serif;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: sticky;
+    top:0;
+}
+
+.header button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-family: 'E-Ukraine-Logo', sans-serif;
+    margin-bottom: 5px;
+}
+
+.header button:active {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    a{
+        color:black;
+    }
+}
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.header .logo img {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+    align-self: center;
+}
+
+.content {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+main{
+    justify-content: center;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+main h1{
+    font-family: 'E-Ukraine-Logo', sans-serif;
+}
+main p{
+
+    font-family: 'E-Ukraine-Regular', sans-serif;
+}
+main li{
+    font-family: 'E-Ukraine-Bold', sans-serif;
+}
+.Accueil{
+    background-color: white;
+    color: black;
+padding: 30px;
+border-radius: 14px;
+margin-bottom: 50%;
+text-align: center;
+vertical-align: middle;
+}
+.Accueil li{
+    text-align: left;
+}
+.CalculNote{
+    background-color: white;
+    color: black;
+padding: 30px;
+border-radius: 14px;
+margin-bottom: 50%;
+text-align: left;
+vertical-align: middle;
+}
+.input-group {
+    margin-bottom: 10px;
+}
+label, option {
+    margin-right: 10px;
+    font-family: 'E-Ukraine-Regular', sans-serif
+}
+.result {
+    font-weight: bold;
+    margin-top: 20px;
+    font-family: 'E-Ukraine-Regular', sans-serif
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 8px;
+    text-align: center;
+    font-family: 'E-Ukraine-Regular', sans-serif;
+}
+button{
+    color: white;
+    background-color: black;
+    font-family: 'E-Ukraine-Regular', sans-serif;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: left;
+
+    gap: 200px;
+    margin-top: 40px;
+    margin-bottom: 50%;
+    
+  }
+  
+  .box {
+    width: 100px;
+    height: 100px;
+    
+    margin: 10px;
+  }
+  .lien-box a{
+
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-family: 'E-Ukraine-Logo', sans-serif;
+  }
+
+.lien-box{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 14px;
+    gap: 5px;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.lien-box img{
+    width: 100px;
+    height: 100px;
+}
+.Calcuateur{
+    background-color: white;
+}

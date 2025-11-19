@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/ETML-logo.jpg">
+    <title>Calculer le pourcentage des projets</title>
+</head>
+<body>
+    <div class="header">
+        <div class="button">
+        <button class="button"><a href="CalculNote.html">Calculer la note de module</a></button>
+        <button class="button"><a href="CalculProj.html">Calculer le pourcentage des projets</a></button>
+        <button class="button"><a href="index.html">Acceuil</a></button>
+        <button class="button"> <div class="content">
+            <div id="clock" class="clock"></div>
+           
+        </div>
+        <script src="script.js"></script></button>
+        <button class="button"><div class="content">
+          
+            <div id="date" class="date"></div>
+        </div>
+        <script src="script.js"></script></button>
+  
+    <button class="button"><div class="content">
+          
+      <div id="timer" class="timer"></div>
+  </div>
+  <script src="script-fin.js"></script></button>
+  <button class="button"><div class="content">
+    
+      <div id="nextPause" class="nextPause"></div>
+  </div>
+  <script src="script.js"></script></button>
+      
+            <button><a href="liens.html">liens utiles</a></button>
+            <button><a href="modeles.html">modèles</a></button>
+            <button><a href="resume.html">résumé des modules</a></button>
+        </div>
+    </div>
+    <div class="content">
+        <main>
+            <div class="CalculNote">
+        <h1>Calculateur des projets</h1>
+
+        <div class="form-group">
+          <label for="projectName">Nom du projet :</label>
+          <input type="text" id="projectName" >
+        </div>
+      
+        <div class="form-group">
+          <label for="periods">Nombre de périodes :</label>
+          <input type="number" id="periods" min="1">
+        </div>
+      
+        <div class="form-group">
+          <label for="acquired">Acquis :</label>
+          <select id="acquired">
+            <option value="oui">Oui</option>
+            <option value="non">Non</option>
+          </select>
+        </div>
+      
+        <button onclick="addProject()">Ajouter au tableau</button>
+        <button onclick="calculatePercentage()">Calculer le pourcentage</button>
+      
+        <table id="projectTable">
+          <thead>
+            <tr>
+              <th>Nom du Projet</th>
+              <th>Nombre de Périodes</th>
+              <th>Acquis</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      
+        <h2 id="result">Pourcentage des périodes acquises : -</h2>
+        <script src="script-proj.js"></script></div></main>
+    </div>
+    
+</body>
+</html>
