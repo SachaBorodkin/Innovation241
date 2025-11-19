@@ -94,6 +94,9 @@ ul {
     font-size: 0.9rem;
     cursor: pointer;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header button a {
@@ -113,23 +116,138 @@ ul {
     color: var(--white);
 }
 
-/* Special styling for info buttons (Clock, Date) to look less clickable */
+/* Info Badges (Clock, Date) - Static */
 .header button:has(#clock), 
-.header button:has(#date),
-.header button:has(#timer),
-.header button:has(#nextPause) {
+.header button:has(#date) {
     background-color: #e9ecef;
     color: var(--text-light);
     cursor: default;
     font-family: 'E-Ukraine-Regular', monospace;
     border: 1px solid #dee2e6;
 }
+
 .header button:has(#clock):hover,
 .header button:has(#date):hover {
     transform: none;
     background-color: #e9ecef;
     color: var(--text-light);
     box-shadow: none;
+}
+
+/* --- DYNAMIC TIMER MENU (New) --- */
+
+/* The wrapper acts as the anchor for the dropdown */
+.timer-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 1100;
+}
+
+/* The visible button part */
+.timer-display-btn {
+    background-color: #e9ecef;
+    color: var(--text-light);
+    border: 1px solid #dee2e6;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'E-Ukraine-Regular', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 160px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.timer-wrapper:hover .timer-display-btn {
+    background-color: var(--white);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* The Hidden Dropdown */
+.timer-settings-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 240px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Show menu on hover */
+.timer-wrapper:hover .timer-settings-menu {
+    display: block;
+}
+
+/* Arrow pointing up (optional polish) */
+.timer-settings-menu::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--white) transparent;
+}
+
+.timer-settings-menu h4 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.timer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.timer-row label {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-main);
+}
+
+.timer-row input {
+    width: 100px;
+    padding: 4px;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.timer-save-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    transition: background 0.2s;
+}
+
+.timer-save-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* --- MAIN LAYOUT --- */
@@ -181,7 +299,7 @@ h2 {
 }
 
 .CalculNote {
-    text-align: left; /* Keep forms left-aligned for readability */
+    text-align: left;
 }
 
 .Accueil p {
@@ -300,24 +418,16 @@ tbody tr:hover {
     background-color: #f8f9fa;
 }
 
-/* --- GRID LAYOUT FOR LINKS & MODELS (The Container) --- */
+/* --- GRID LAYOUT FOR LINKS & MODELS --- */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive Grid */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
     width: 100%;
     justify-content: center;
     padding-bottom: 60px;
 }
 
-/* Remove old box styling */
-.box {
-    width: auto;
-    height: auto;
-    margin: 0;
-}
-
-/* New Card Styling */
 .lien-box {
     background-color: var(--white);
     border-radius: var(--radius);
@@ -344,7 +454,7 @@ tbody tr:hover {
     height: 80px;
     object-fit: contain;
     margin-bottom: 20px;
-    border-radius: 8px; /* Subtle rounding on images */
+    border-radius: 8px;
 }
 
 .lien-box a {

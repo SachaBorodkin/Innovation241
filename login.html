@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/ETML-logo.jpg">
+    <title>Connexion</title>
+    <style>
+        .auth-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .auth-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: left;
+        }
+        .error-msg {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+        .success-msg {
+            color: green;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="button">
+            <button><a href="index.html">Accueil</a></button>
+            <button><a href="CalculNote.html">Notes</a></button>
+            <button><a href="CalculProj.html">Projets</a></button>
+            <button><a href="liens.html">Liens</a></button>
+            <button><a href="modeles.html">Modèles</a></button>
+            <button><a href="resume.html">Résumé</a></button>
+        </div>
+    </div>
+
+    <div class="content">
+        <main>
+            <h1>Espace Utilisateur</h1>
+            
+            <div class="auth-container">
+                <!-- Login Form -->
+                <div class="auth-box">
+                    <h2>Connexion</h2>
+                    <div class="input-group">
+                        <label for="login-user">Nom d'utilisateur</label>
+                        <input type="text" id="login-user" placeholder="ex: sacha">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-pass">Mot de passe</label>
+                        <input type="password" id="login-pass" placeholder="******">
+                    </div>
+                    <button onclick="handleLogin()">Se connecter</button>
+                    <p id="login-msg" class="error-msg"></p>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-box">
+                    <h2>Inscription</h2>
+                    <div class="input-group">
+                        <label for="reg-user">Nom d'utilisateur</label>
+                        <input type="text" id="reg-user">
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-fullname">Nom Complet</label>
+                        <input type="text" id="reg-fullname">
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-pass">Mot de passe</label>
+                        <input type="password" id="reg-pass">
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-role">Rôle</label>
+                        <select id="reg-role">
+                            <option value="student">Élève</option>
+                            <option value="teacher">Enseignant</option>
+                        </select>
+                    </div>
+                    <button onclick="handleRegister()">Créer un compte</button>
+                    <p id="reg-msg" class="success-msg"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="script.js"></script>
+    <script src="script-fin.js"></script>
+    
+    <script>
+        async function handleLogin() {
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+            const msg = document.getElementById('login-msg');
+
+            try {
+                const userData = await loginUser(user, pass);
+                msg.style.color = 'green';
+                msg.textContent = "Connexion réussie !";
+                msg.style.display = 'block';
+                setTimeout(() => window.location.href = 'index.html', 1000);
+            } catch (error) {
+                msg.style.color = 'red';
+                msg.textContent = error;
+                msg.style.display = 'block';
+            }
+        }
+
+        async function handleRegister() {
+            const user = document.getElementById('reg-user').value;
+            const pass = document.getElementById('reg-pass').value;
+            const name = document.getElementById('reg-fullname').value;
+            const role = document.getElementById('reg-role').value;
+            const msg = document.getElementById('reg-msg');
+
+            if(!user || !pass) {
+                msg.style.color = 'red';
+                msg.textContent = "Veuillez remplir tous les champs.";
+                msg.style.display = 'block';
+                return;
+            }
+
+            try {
+                await registerUser(user, pass, role, name);
+                msg.style.color = 'green';
+                msg.textContent = "Compte créé ! Vous pouvez vous connecter.";
+                msg.style.display = 'block';
+                // Clear form
+                document.getElementById('reg-user').value = '';
+                document.getElementById('reg-pass').value = '';
+                document.getElementById('reg-fullname').value = '';
+            } catch (error) {
+                msg.style.color = 'red';
+                msg.textContent = error;
+                msg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

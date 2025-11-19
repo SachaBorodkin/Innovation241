@@ -10,10 +10,11 @@
 <body>
     <div class="header">
         <div class="button">
+            <!-- Auth button will be inserted here automatically by database.js -->
             <button><a href="index.html">Accueil</a></button>
-            <button><a href="CalculNote.html">Calcul Notes</a></button>
-            <button><a href="CalculProj.html">Calcul Projets</a></button>
-            <button><a href="liens.html">Liens Utiles</a></button>
+            <button><a href="CalculNote.html">Notes</a></button>
+            <button><a href="CalculProj.html">Projets</a></button>
+            <button><a href="liens.html">Liens</a></button>
             <button><a href="modeles.html">Modèles</a></button>
             <button><a href="resume.html">Résumé</a></button>
             
@@ -29,17 +30,21 @@
             <div class="Accueil">
                 <h1>Bienvenue sur ce site de gestion d'étude</h1>
                 <p>Le site est réalisé par un étudiant de l'ETML Borodkin Oleksandr</p>
-                <p>Le site s'agit de contenir toutes les choses utiles pour étude, comme:</p>
+                <p>Ce site regroupe des outils utiles pour vos études :</p>
                 <ul>
-                    <li>Calculer les moyennes</li>
-                    <li>Les liens utiles</li>
-                    <li>Les modèles de documentation de l'école</li>
-                    <li>Résumé des modules</li>
+                    <li>Calculer vos moyennes et notes</li>
+                    <li>Suivre l'avancement de vos projets</li>
+                    <li>Accéder aux liens et modèles importants</li>
                 </ul>
+                <br>
+                <p style="color: var(--primary-color); font-weight: bold;">
+                    Nouveau : Système de compte local ! Connectez-vous pour sauvegarder vos données.
+                </p>
             </div>
         </main>
     </div>
 
+    <script src="js/database.js"></script>
     <script src="script.js"></script>
     <script src="script-fin.js"></script>
 </body>
