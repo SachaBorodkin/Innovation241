@@ -1,0 +1,13 @@
+[ ] Afficher plus distictement les erreurs. 
+
+[ ] Ajouter un Easter Eggs.
+
+[ ] Sauvegarde des données.
+
+[ ] Moyen de Login
+
+[ ] Avoir des statisitques
+
+[ ] Avoir des statisique payentes avec un abonnement
+
+[ ] (Un casino online)
