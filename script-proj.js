@@ -33,6 +33,10 @@ let totalPeriods = 0;
         alert("Aucune période enregistrée.");
         return;
       }
+      let message;
+      if(percentage.toFixed >= 80){
+message = "";
+      }
       const percentage = (acquiredPeriods / totalPeriods) * 100;
       document.getElementById('result').textContent = `Pourcentage des périodes acquises : ${percentage.toFixed(2)}%`;
     }
