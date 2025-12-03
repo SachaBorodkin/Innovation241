@@ -4,14 +4,14 @@
  */
 
 const DB_NAME = 'SchoolDB';
-const DB_VERSION = 3; // Incremented for Settings Store
+const DB_VERSION = 3; 
 
 // Store Names
 const STORE_USERS = 'users';
 const STORE_GRADES = 'grades';
 const STORE_PROJECTS = 'projects';
 const STORE_DAILY_PLAN = 'daily_plan';
-const STORE_SETTINGS = 'settings'; // New Store
+const STORE_SETTINGS = 'settings'; 
 
 let db;
 
@@ -49,7 +49,6 @@ function initDB() {
                 const store = db.createObjectStore(STORE_DAILY_PLAN, { keyPath: 'id', autoIncrement: true });
                 store.createIndex('username', 'username', { unique: false });
             }
-            // Settings Store (New in v3) - Key-Value pair style
             if (!db.objectStoreNames.contains(STORE_SETTINGS)) {
                 db.createObjectStore(STORE_SETTINGS, { keyPath: 'key' });
             }
@@ -84,26 +83,86 @@ async function getSchedule() {
     });
 }
 
-// --- USER AUTHENTICATION ---
+// --- USER AUTHENTICATION & ADMIN ---
 
-async function registerUser(username, password, role, fullName) {
+async function checkUserCount() {
     await initDB();
+    return new Promise((resolve) => {
+        const transaction = db.transaction([STORE_USERS], 'readonly');
+        const store = transaction.objectStore(STORE_USERS);
+        const countRequest = store.count();
+        countRequest.onsuccess = () => resolve(countRequest.result);
+    });
+}
+
+async function verifyAdminCredentials(adminUser, adminPass) {
+    await initDB();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_USERS], 'readonly');
+        const store = transaction.objectStore(STORE_USERS);
+        const request = store.get(adminUser);
+
+        request.onsuccess = () => {
+            const user = request.result;
+            // Check if user exists, password matches, and role is admin
+            if (user && user.password === adminPass && user.role === 'admin') {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        };
+        request.onerror = () => resolve(false);
+    });
+}
+
+async function registerUser(username, password, role, fullName, adminAuth = null) {
+    await initDB(); 
+    
+    // 1. Check if username exists
+    const userExists = await new Promise((resolve) => {
+        const transaction = db.transaction([STORE_USERS], 'readonly');
+        const store = transaction.objectStore(STORE_USERS);
+        const req = store.get(username);
+        req.onsuccess = () => resolve(req.result);
+    });
+
+    if (userExists) throw "Ce nom d'utilisateur existe déjà.";
+
+    // 2. Determine Role logic
+    const userCount = await checkUserCount();
+    let finalRole = role;
+
+    if (userCount === 0) {
+        // First user is ALWAYS Admin
+        finalRole = 'admin'; 
+    } else if (role === 'teacher') {
+        // Must validate admin credentials
+        if (!adminAuth || !adminAuth.user || !adminAuth.pass) {
+            throw "Validation administrateur requise pour créer un compte enseignant.";
+        }
+        const isAdminValid = await verifyAdminCredentials(adminAuth.user, adminAuth.pass);
+        if (!isAdminValid) {
+            throw "Identifiants administrateur incorrects.";
+        }
+    } else {
+        // Default to student if they try to be funny
+        finalRole = 'student';
+    }
+
+    // 3. Create User
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_USERS], 'readwrite');
         const store = transaction.objectStore(STORE_USERS);
-        const checkRequest = store.get(username);
-
-        checkRequest.onsuccess = () => {
-            if (checkRequest.result) {
-                reject("Ce nom d'utilisateur existe déjà.");
-            } else {
-                const newUser = { username, password, role, fullName, createdAt: new Date() };
-                const addRequest = store.add(newUser);
-                addRequest.onsuccess = () => resolve(newUser);
-                addRequest.onerror = () => reject("Erreur lors de l'inscription.");
-            }
+        const newUser = { 
+            username, 
+            password, 
+            role: finalRole, 
+            fullName, 
+            createdAt: new Date() 
         };
-        checkRequest.onerror = () => reject("Erreur DB.");
+        const addRequest = store.add(newUser);
+        addRequest.onsuccess = () => resolve(newUser);
+        addRequest.onerror = () => reject("Erreur lors de l'inscription.");
     });
 }
 
@@ -211,7 +270,8 @@ function updateAuthButton() {
 
     if (authBtn) {
         if (user) {
-            authBtn.innerHTML = `<a href="#" onclick="logoutUser(); return false;">Déconnexion (${user.username})</a>`;
+            let roleLabel = user.role === 'admin' ? 'Admin' : (user.role === 'teacher' ? 'Prof' : 'Élève');
+            authBtn.innerHTML = `<a href="#" onclick="logoutUser(); return false;">Déconnexion (${user.username} - ${roleLabel})</a>`;
         } else {
             authBtn.innerHTML = `<a href="login.html">Connexion</a>`;
         }

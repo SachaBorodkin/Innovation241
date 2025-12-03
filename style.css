@@ -70,7 +70,7 @@ ul {
     -webkit-backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     display: flex;
-    justify-content: center; /* Center content */
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid rgba(255,255,255,0.3);
 }
@@ -134,13 +134,14 @@ ul {
     box-shadow: none;
 }
 
-/* --- DYNAMIC TIMER MENU (New) --- */
+/* --- DYNAMIC TIMER MENU --- */
 
-/* The wrapper acts as the anchor for the dropdown */
+/* The wrapper acts as the anchor */
 .timer-wrapper {
     position: relative;
     display: inline-block;
     z-index: 1100;
+    height: 100%; /* Ensure it fills height if needed */
 }
 
 /* The visible button part */
@@ -156,17 +157,32 @@ ul {
     min-width: 160px;
     text-align: center;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.timer-static {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.timer-live {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 .timer-wrapper:hover .timer-display-btn {
     background-color: var(--white);
     border-color: var(--primary-color);
-    color: var(--primary-color);
 }
 
 /* The Hidden Dropdown */
 .timer-settings-menu {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -175,10 +191,12 @@ ul {
     padding: 15px;
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
-    width: 240px;
-    margin-top: 10px;
+    width: 260px;
+    margin-top: 12px; /* Visual Gap */
     border: 1px solid #eee;
     animation: fadeIn 0.2s ease-in-out;
+    cursor: default;
+    z-index: 1200;
 }
 
 /* Show menu on hover */
@@ -186,8 +204,20 @@ ul {
     display: block;
 }
 
-/* Arrow pointing up (optional polish) */
+/* --- FIX: INVISIBLE BRIDGE --- */
+/* This pseudo-element fills the gap between button and menu so hover isn't lost */
 .timer-settings-menu::before {
+    content: "";
+    position: absolute;
+    top: -20px; /* Extends up to cover the margin */
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+/* --- VISUAL ARROW (Moved to ::after) --- */
+.timer-settings-menu::after {
     content: "";
     position: absolute;
     top: -6px;
@@ -198,13 +228,25 @@ ul {
     border-color: transparent transparent var(--white) transparent;
 }
 
-.timer-settings-menu h4 {
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
-    color: var(--primary-color);
-    text-align: center;
-    font-size: 0.9rem;
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
+}
+
+.timer-settings-menu h4 {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.mini-timer {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-family: monospace;
 }
 
 .timer-row {
@@ -216,16 +258,17 @@ ul {
 
 .timer-row label {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-main);
 }
 
 .timer-row input {
-    width: 100px;
+    width: 90px;
     padding: 4px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    text-align: center;
 }
 
 .timer-save-btn {
@@ -233,11 +276,12 @@ ul {
     background-color: var(--primary-color);
     color: var(--white);
     border: none;
-    padding: 6px;
+    padding: 8px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
-    margin-top: 5px;
+    font-size: 0.9rem;
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    margin-top: 8px;
     transition: background 0.2s;
 }
 
@@ -345,6 +389,7 @@ label {
 
 input[type="text"],
 input[type="number"],
+input[type="password"],
 select {
     width: 100%;
     padding: 12px 15px;
@@ -512,4 +557,109 @@ tbody tr:hover {
     h1 {
         font-size: 1.8rem;
     }
+}
+
+/* --- AUTHENTICATION PAGES --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.auth-box {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fadeIn 0.4s ease;
+}
+
+.auth-box h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+.auth-box button {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'E-Ukraine-Bold', sans-serif;
+    margin-top: 15px;
+    transition: var(--transition);
+}
+
+.auth-box button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.toggle-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.toggle-link span {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.error-msg {
+    color: #e74c3c;
+    background: #fdeaea;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    display: none;
+    text-align: center;
+    border: 1px solid #fadbd8;
+}
+
+.success-msg {
+    color: #27ae60;
+    background: #e8f8f5;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    display: none;
+    text-align: center;
+    border: 1px solid #d4efdf;
+}
+
+/* Hidden elements helper */
+.hidden {
+    display: none !important;
+}
+
+.admin-validation-box {
+    background-color: #f8f9fa;
+    border: 1px dashed var(--primary-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.admin-validation-box h4 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-align: center;
 }

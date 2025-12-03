@@ -6,34 +6,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/ETML-logo.jpg">
     <title>Connexion</title>
-    <style>
-        .auth-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .auth-box {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 350px;
-            text-align: left;
-        }
-        .error-msg {
-            color: red;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: none;
-        }
-        .success-msg {
-            color: green;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <div class="header">
@@ -52,46 +24,75 @@
             <h1>Espace Utilisateur</h1>
             
             <div class="auth-container">
-                <!-- Login Form -->
-                <div class="auth-box">
+                
+                <!-- LOGIN FORM (Visible by default) -->
+                <div id="login-view" class="auth-box">
                     <h2>Connexion</h2>
                     <div class="input-group">
                         <label for="login-user">Nom d'utilisateur</label>
-                        <input type="text" id="login-user" placeholder="ex: sacha">
+                        <input type="text" id="login-user" placeholder="Votre nom d'utilisateur">
                     </div>
                     <div class="input-group">
                         <label for="login-pass">Mot de passe</label>
                         <input type="password" id="login-pass" placeholder="******">
                     </div>
+                    
                     <button onclick="handleLogin()">Se connecter</button>
                     <p id="login-msg" class="error-msg"></p>
+
+                    <div class="toggle-link">
+                        Pas encore de compte ? <span onclick="showRegister()">S'inscrire</span>
+                    </div>
                 </div>
 
-                <!-- Register Form -->
-                <div class="auth-box">
+                <!-- REGISTER FORM (Hidden by default) -->
+                <div id="register-view" class="auth-box hidden">
                     <h2>Inscription</h2>
+                    
                     <div class="input-group">
                         <label for="reg-user">Nom d'utilisateur</label>
-                        <input type="text" id="reg-user">
+                        <input type="text" id="reg-user" placeholder="Choisissez un nom">
                     </div>
                     <div class="input-group">
                         <label for="reg-fullname">Nom Complet</label>
-                        <input type="text" id="reg-fullname">
+                        <input type="text" id="reg-fullname" placeholder="Prénom Nom">
                     </div>
                     <div class="input-group">
                         <label for="reg-pass">Mot de passe</label>
-                        <input type="password" id="reg-pass">
+                        <input type="password" id="reg-pass" placeholder="******">
                     </div>
                     <div class="input-group">
-                        <label for="reg-role">Rôle</label>
-                        <select id="reg-role">
+                        <label for="reg-role">Je suis un(e)...</label>
+                        <select id="reg-role" onchange="toggleAdminFields()">
                             <option value="student">Élève</option>
-                            <option value="teacher">Enseignant</option>
+                            <option value="teacher">Enseignant (Validation Admin requise)</option>
                         </select>
                     </div>
-                    <button onclick="handleRegister()">Créer un compte</button>
-                    <p id="reg-msg" class="success-msg"></p>
+
+                    <!-- ADMIN VALIDATION SECTION (Hidden unless Teacher selected) -->
+                    <div id="admin-auth-fields" class="hidden admin-validation-box">
+                        <h4>Validation Administrateur</h4>
+                        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">
+                            Veuillez entrer les identifiants d'un compte <b>Admin</b> existant pour autoriser cette création.
+                        </p>
+                        <div class="input-group">
+                            <label for="admin-user">Admin Username</label>
+                            <input type="text" id="admin-user">
+                        </div>
+                        <div class="input-group">
+                            <label for="admin-pass">Admin Password</label>
+                            <input type="password" id="admin-pass">
+                        </div>
+                    </div>
+
+                    <button onclick="handleRegister()">Créer mon compte</button>
+                    <p id="reg-msg" class="error-msg"></p>
+
+                    <div class="toggle-link">
+                        Déjà un compte ? <span onclick="showLogin()">Se connecter</span>
+                    </div>
                 </div>
+
             </div>
         </main>
     </div>
@@ -101,19 +102,63 @@
     <script src="script-fin.js"></script>
     
     <script>
+        // Check if this is the VERY FIRST user (Bootstrap mode)
+        document.addEventListener('DOMContentLoaded', async () => {
+            const count = await checkUserCount();
+            if (count === 0) {
+                const info = document.createElement('p');
+                info.style.color = '#0056b3';
+                info.style.textAlign = 'center';
+                info.style.fontWeight = 'bold';
+                info.innerText = "Premier lancement détecté : Le premier compte créé sera automatiquement Administrateur.";
+                document.getElementById('register-view').insertBefore(info, document.getElementById('register-view').children[1]);
+                // Force show register for first user convenience
+                showRegister();
+            }
+        });
+
+        // --- UI TOGGLES ---
+        function showLogin() {
+            document.getElementById('register-view').classList.add('hidden');
+            document.getElementById('login-view').classList.remove('hidden');
+            clearMessages();
+        }
+
+        function showRegister() {
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('register-view').classList.remove('hidden');
+            clearMessages();
+        }
+
+        function toggleAdminFields() {
+            const role = document.getElementById('reg-role').value;
+            const adminFields = document.getElementById('admin-auth-fields');
+            if (role === 'teacher') {
+                adminFields.classList.remove('hidden');
+            } else {
+                adminFields.classList.add('hidden');
+            }
+        }
+
+        function clearMessages() {
+            document.getElementById('login-msg').style.display = 'none';
+            document.getElementById('reg-msg').style.display = 'none';
+        }
+
+        // --- LOGIC ---
         async function handleLogin() {
             const user = document.getElementById('login-user').value;
             const pass = document.getElementById('login-pass').value;
             const msg = document.getElementById('login-msg');
 
             try {
-                const userData = await loginUser(user, pass);
-                msg.style.color = 'green';
+                await loginUser(user, pass);
+                msg.className = 'success-msg';
                 msg.textContent = "Connexion réussie !";
                 msg.style.display = 'block';
-                setTimeout(() => window.location.href = 'index.html', 1000);
+                setTimeout(() => window.location.href = 'index.html', 800);
             } catch (error) {
-                msg.style.color = 'red';
+                msg.className = 'error-msg';
                 msg.textContent = error;
                 msg.style.display = 'block';
             }
@@ -126,24 +171,38 @@
             const role = document.getElementById('reg-role').value;
             const msg = document.getElementById('reg-msg');
 
-            if(!user || !pass) {
-                msg.style.color = 'red';
+            if(!user || !pass || !name) {
+                msg.className = 'error-msg';
                 msg.textContent = "Veuillez remplir tous les champs.";
                 msg.style.display = 'block';
                 return;
             }
 
+            // Prepare admin credentials if needed
+            let adminAuth = null;
+            if (role === 'teacher') {
+                const adminUser = document.getElementById('admin-user').value;
+                const adminPass = document.getElementById('admin-pass').value;
+                if (!adminUser || !adminPass) {
+                    msg.className = 'error-msg';
+                    msg.textContent = "Identifiants Admin requis pour créer un enseignant.";
+                    msg.style.display = 'block';
+                    return;
+                }
+                adminAuth = { user: adminUser, pass: adminPass };
+            }
+
             try {
-                await registerUser(user, pass, role, name);
-                msg.style.color = 'green';
-                msg.textContent = "Compte créé ! Vous pouvez vous connecter.";
+                const newUser = await registerUser(user, pass, role, name, adminAuth);
+                msg.className = 'success-msg';
+                msg.textContent = `Compte créé (${newUser.role === 'admin' ? 'Admin' : newUser.role}) ! Connexion...`;
                 msg.style.display = 'block';
-                // Clear form
-                document.getElementById('reg-user').value = '';
-                document.getElementById('reg-pass').value = '';
-                document.getElementById('reg-fullname').value = '';
+                
+                // Auto login
+                await loginUser(user, pass);
+                setTimeout(() => window.location.href = 'index.html', 1500);
             } catch (error) {
-                msg.style.color = 'red';
+                msg.className = 'error-msg';
                 msg.textContent = error;
                 msg.style.display = 'block';
             }
