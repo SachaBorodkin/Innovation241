@@ -2,7 +2,12 @@
 require_once __DIR__ . '/../includes/db.php';
 session_start();
 ?>
-
+<script>
+    const USER_LOGGED = <?php echo isset($_SESSION["user_id"]) ? "true" : "false"; ?>;
+    const USERNAME = "<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>";
+    const ROLE_ID = "<?php echo isset($_SESSION['role_id']) ? $_SESSION['role_id'] : ''; ?>";
+</script>
+<script src="session_header.js"></script>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

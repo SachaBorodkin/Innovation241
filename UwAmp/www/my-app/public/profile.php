@@ -13,7 +13,12 @@ if (!isset($_SESSION["username"])) {
     <link rel="stylesheet" href="style.css">
     <title>Profil</title>
 </head>
-
+<script>
+    const USER_LOGGED = <?php echo isset($_SESSION["user_id"]) ? "true" : "false"; ?>;
+    const USERNAME = "<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>";
+    const ROLE_ID = "<?php echo isset($_SESSION['role_id']) ? $_SESSION['role_id'] : ''; ?>";
+</script>
+<script src="session_header.js"></script>
 <body>
     <div class="header">
         <div class="button">
