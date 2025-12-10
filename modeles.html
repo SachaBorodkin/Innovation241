@@ -5,51 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/ETML-logo.jpg">
-    <title>Modèles</title>
+    <title>modèles</title>
 </head>
 <body>
     <div class="header">
         <div class="button">
-            <<a href="index.html"><button>Accueil</button></a>
-<a href="CalculNote.html"><button>Notes</button></a>
-<a href="CalculProj.html"><button>Projets</button></a>
-<a href="liens.html"><button>Liens</button></a>
-<a href="modeles.html"><button>Modèles</button></a>
-<a href="resume.html"><button>Résumé</button></a>
-            <button id="clock-btn"><div id="clock"></div></button>
-            <button id="date-btn"><div id="date"></div></button>
-            <button id="timer-btn"><div id="timer"></div></button>
-            <button id="pause-btn"><div id="nextPause"></div></button>
+        <button class="button"><a href="CalculNote.html">Calculer la note de module</a></button>
+        <button class="button"><a href="CalculProj.html">Calculer le pourcentage des projets</a></button>
+        <button class="button"><a href="index.html">Acceuil</a></button>
+        <button class="button"> <div class="content">
+            <div id="clock" class="clock"></div>
+           
+        </div>
+        <script src="script.js"></script></button>
+        <button class="button"><div class="content">
+          
+            <div id="date" class="date"></div>
+        </div>
+        <script src="script.js"></script></button>
+  
+    <button class="button"><div class="content">
+          
+      <div id="timer" class="timer"></div>
+  </div>
+  <script src="script-fin.js"></script></button>
+  <button class="button"><div class="content">
+    
+      <div id="nextPause" class="nextPause"></div>
+  </div>
+  <script src="script.js"></script></button>
+      
+            <button><a href="liens.html">liens utiles</a></button>
+            <button><a href="modeles.html">modèles</a></button>
+            <button><a href="resume.html">résumé des modules</a></button>
         </div>
     </div>
-
     <div class="content">
-        <main>
-            <h1>Documents & Modèles</h1>
-            <div class="container">
-                <div class="lien-box">
-                    <img src="images/PDF-Logo.png" alt="PDF">
-                    <a href="Modèles/Demande de congé.pdf" download>Demande de congé</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/PDF-Logo.png" alt="PDF">
-                    <a href="Modèles/Justification d'absence.pdf" download>Justification d'absence</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/Excell-logo.webp" alt="Excel">
-                    <a href="Modèles/m-planification-jnltrav_heures.xltm" download>Journal de travail</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/Word-logo.webp" alt="Word">
-                    <a href="Modèles/m-proj-rapport.dotx" download>Rapport</a>
-                </div>
-            </div>
-        </main>
+  
     </div>
-
-   <script src="js/api.js"></script> 
-    <script src="script.js"></script>
-    <script src="script-fin.js"></script>
-    <script src="script-note.js"></script>
+    <main>
+        <div class="container">
+            <div class="box"><div class="lien-box"><img src="images/PDF-Logo.png"><a href="Modèles/Demande de congé.pdf" download>Demande de congé</a></div></div>
+            <div class="box"><div class="lien-box"><img src="images/PDF-Logo.png"><a href="Modèles/Justification d'absence.pdf" download>Justification d'absence</a></div></div>
+            <div class="box"><div class="lien-box"><img src="images/Excell-logo.webp"><a href="Modèles/m-planification-jnltrav_heures.xltm" download>Journal de travail</a></div></div>
+            <div class="box"><div class="lien-box"><img src="images/Word-logo.webp"><a href="Modèles/m-proj-rapport.dotx" download>Rapport</a></div></div>
+          
+          </div>
+        </main>
 </body>
 </html>

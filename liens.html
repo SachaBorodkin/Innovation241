@@ -10,50 +10,47 @@
 <body>
     <div class="header">
         <div class="button">
-            <a href="index.html"><button>Accueil</button></a>
-<a href="CalculNote.html"><button>Notes</button></a>
-<a href="CalculProj.html"><button>Projets</button></a>
-<a href="liens.html"><button>Liens</button></a>
-<a href="modeles.html"><button>Modèles</button></a>
-<a href="resume.html"><button>Résumé</button></a>
-            <button id="clock-btn"><div id="clock"></div></button>
-            <button id="date-btn"><div id="date"></div></button>
-            <button id="timer-btn"><div id="timer"></div></button>
-            <button id="pause-btn"><div id="nextPause"></div></button>
+        <button class="button"><a href="CalculNote.html">Calculer la note de module</a></button>
+        <button class="button"><a href="CalculProj.html">Calculer le pourcentage des projets</a></button>
+        <button class="button"><a href="index.html">Acceuil</a></button>
+        <button class="button"> <div class="content">
+            <div id="clock" class="clock"></div>
+           
+        </div>
+        <script src="script.js"></script></button>
+        <button class="button"><div class="content">
+          
+            <div id="date" class="date"></div>
+        </div>
+        <script src="script.js"></script></button>
+  
+    <button class="button"><div class="content">
+          
+      <div id="timer" class="timer"></div>
+  </div>
+  <script src="script-fin.js"></script></button>
+  <button class="button"><div class="content">
+    
+      <div id="nextPause" class="nextPause"></div>
+  </div>
+  <script src="script.js"></script></button>
+      
+            <button><a href="liens.html">liens utiles</a></button>
+            <button><a href="modeles.html">modèles</a></button>
+            <button><a href="resume.html">résumé des modules</a></button>
         </div>
     </div>
-
     <div class="content">
-        <main>
-            <h1>Liens Utiles</h1>
-            <div class="container">
-                <div class="lien-box">
-                    <img src="images/etml.jpg" alt="FAQ">
-                    <a href="https://faq.section-inf.ch/" target="_blank">FAQ - Section INF</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/ice-scrum.jpg" alt="IceScrum">
-                    <a href="https://etml.icescrum.com/" target="_blank">ETML ice-scrum</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/Marketplace.PNG" alt="Marketplace">
-                    <a href="https://apps.pm2etml.ch/login" target="_blank">Marketplace</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/ETML-logo.jpg" alt="ETML">
-                    <a href="https://www.etml.ch/" target="_blank">Site ETML</a>
-                </div>
-                <div class="lien-box">
-                    <img src="images/ICT.jpg" alt="ICT">
-                    <a href="https://enseignement.section-inf.ch/" target="_blank">Modules-Chapitres</a>
-                </div>
-            </div>
-        </main>
+  
     </div>
-
-    <script src="js/api.js"></script> 
-    <script src="script.js"></script>
-    <script src="script-fin.js"></script>
-    <script src="script-note.js"></script>
+    <main>
+    <div class="container">
+        <div class="box"><div class="lien-box"><img src="images/etml.jpg"><a href="https://faq.section-inf.ch/">FAQ - Section INF</a></div></div>
+        <div class="box"><div class="lien-box"><img src="images/ice-scrum.jpg"><a href="https://etml.icescrum.com/">ETML ice-scrum</a></div></div>
+        <div class="box"><div class="lien-box"><img src="images/Marketplace.PNG"><a href="https://apps.pm2etml.ch/login">Marketplace</a></div></div>
+        <div class="box"><div class="lien-box"><img src="images/ETML-logo.jpg"><a href="https://www.etml.ch/">ETML</a></div></div>
+        <div class="box"><div class="lien-box"><img src="images/ICT.jpg"><a href="https://enseignement.section-inf.ch/">Modules-Chapitres</a></div></div>
+      </div>
+    </main>
 </body>
 </html>
