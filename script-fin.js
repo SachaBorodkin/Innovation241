@@ -3,7 +3,7 @@ function timeUntilEndOfCourse() {
     const courseEndTimes = {
         'lundi': '15:45',
         'mardi': '17:25',
-        'mercredi': '14:45',
+        'mercredi': '16:35',
         'jeudi': '16:35',
         'vendredi': '16:35',
     };

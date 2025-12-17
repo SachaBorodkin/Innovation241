@@ -1,86 +1,74 @@
-body {
-margin: 0;
-font-family: 'E-Ukraine-Regular', sans-serif;
-background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-background-attachment: fixed;
-min-height: 100vh;
-display: flex;
-color: #2c3e50;
+ * { box-sizing: border-box;  font-family: "Archivo Black", sans-serif;
+
+ }
+ @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      background: radial-gradient(circle at center, #f8fafc 0%, #e6ebf0 70%);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    }
+    .sidebar h4 {
+      margin: 20px 0 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    /* Main area */
+    .main {
+      flex: 1;
+      position: relative;
+      padding: 40px;
+    }
+
+    /* Top pills */
+   .top-actions {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  display: flex;
+  gap: 15px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 10px; /* optional padding around the whole container */
 }
 
-
-/* --- Sidebar --- */
-.header {
-width: 260px;
-height: 100vh;
-display: flex;
-flex-direction: column;
-gap: 12px;
-padding: 30px 15px;
-background: rgba(255, 255, 255, 0.9);
-backdrop-filter: blur(15px);
-border-right: 1px solid rgba(0, 0, 0, 0.05);
-position: fixed;
-top: 0;
-left: 0;
-z-index: 1000;
-box-sizing: border-box;
+.pill {
+  display: flex; /* use flex for centering */
+  align-items: center; /* vertical center */
+  justify-content: center; /* horizontal center */
+  width: 150px;
+  height: 36px;
+  background: #d9d9d9;
+  border-radius: 20px;
+  padding: 0 10px; /* horizontal padding inside the pill */
+  text-align: center; /* fallback for horizontal centering */
+  font-size: 14px; /* adjust text size if needed */
 }
 
-
-/* --- Navigation items --- */
-.nav-item {
-text-decoration: none;
-background: #2c3e50;
-color: #ffffff;
-padding: 14px 20px;
-border-radius: 12px;
-font-size: 13px;
-font-family: 'E-Ukraine-Bold', sans-serif;
-transition: all 0.3s ease;
-display: flex;
-align-items: center;
-cursor: pointer;
-}
-a, #clock, #date, #timer{
-text-decoration: none;
-background: #2c3e50;
-color: #ffffff;
-padding: 14px 20px;
-border-radius: 12px;
-font-size: 13px;
-font-family: 'E-Ukraine-Bold', sans-serif;
-transition: all 0.3s ease;
-display: flex;
-align-items: center;
-cursor: pointer;
-}
-
-
-.nav-item:hover {
-background: #3498db;
-transform: translateX(5px);
-}
-
-
-/* --- Widgets (clock, date, timer) --- */
-.widget-item {
-background: #f8f9fa;
-color: #2c3e50;
-border: 1px solid #e9ecef;
-cursor: default;
-}
-
-
-/* --- Main content --- */
-main {
-margin-left: 260px;
-padding: 60px;
-width: calc(100% - 260px);
-box-sizing: border-box;
-}
-
-
-.Accueil h1 {
-margin-top: 0;
-}
+    /* Center card */
+    .center-box {
+      width: 520px;
+      height: 300px;
+      background: #ffffff;
+      margin: 120px auto 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 15px;
+    }
